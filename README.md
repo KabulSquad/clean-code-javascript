@@ -1,21 +1,21 @@
-# clean-code-javascript
+# کدنویسی تمیز (Clean Code) در جاوا اسکریپت
 
-## Table of Contents
+## فهرست مطالب
 
-1. [Introduction](#introduction)
-2. [Variables](#variables)
-3. [Functions](#functions)
-4. [Objects and Data Structures](#objects-and-data-structures)
-5. [Classes](#classes)
-6. [SOLID](#solid)
-7. [Testing](#testing)
-8. [Concurrency](#concurrency)
-9. [Error Handling](#error-handling)
-10. [Formatting](#formatting)
-11. [Comments](#comments)
-12. [Translation](#translation)
+1. [معرفی](#معرفی)
+2. [متغیرها (Variables)](#متغیرها-Variables)
+3. [توابع (Functions)](#توابع-functions)
+4. [اشیاء و ساختارهای داده (Objects and Data Structures)](#اشیاء-و-ساختارهای-داده-objects-and-data-structures)
+5. [کلاسها (Classes)](#کلاسها-classes)
+6. [اصول سالید (SOLID)](#قاعده-سالید-solid)
+7. [تست کردن (Testing)](#تست-کردن-testing)
+8. [همزمانی (Concurrency)](#همزمانی-concurrency)
+9. [رسیدگی به خطا (Error Handling)](#رسیدگی-به-خطا-error-handling)
+10. [قالب بندی (Formatting)](#قالب-بندی-formatting)
+11. [یادداشت ها (Comments)](#یادداشت-ها-comments)
+12. [ترجمه (Translation)](#ترجمه-translation)
 
-## Introduction
+## معرفی
 
 ![Humorous image of software quality estimation as a count of how many expletives
 you shout when reading code](https://www.osnews.com/images/comics/wtfm.jpg)
@@ -43,7 +43,7 @@ shaped into its final form. Finally, we chisel away the imperfections when
 we review it with our peers. Don't beat yourself up for first drafts that need
 improvement. Beat up the code instead!
 
-## **Variables**
+## **متغیرها (Variables)**
 
 ### Use meaningful and pronounceable variable names
 
@@ -59,7 +59,7 @@ const yyyymmdstr = moment().format("YYYY/MM/DD");
 const currentDate = moment().format("YYYY/MM/DD");
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Use the same vocabulary for the same type of variable
 
@@ -77,7 +77,7 @@ getCustomerRecord();
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Use searchable names
 
@@ -105,7 +105,7 @@ const MILLISECONDS_PER_DAY = 60 * 60 * 24 * 1000; //86400000;
 setTimeout(blastOff, MILLISECONDS_PER_DAY);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Use explanatory variables
 
@@ -129,7 +129,7 @@ const [_, city, zipCode] = address.match(cityZipCodeRegex) || [];
 saveCityZipCode(city, zipCode);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid Mental Mapping
 
@@ -139,7 +139,7 @@ Explicit is better than implicit.
 
 ```javascript
 const locations = ["Austin", "New York", "San Francisco"];
-locations.forEach(l => {
+locations.forEach((l) => {
   doStuff();
   doSomeOtherStuff();
   // ...
@@ -154,7 +154,7 @@ locations.forEach(l => {
 
 ```javascript
 const locations = ["Austin", "New York", "San Francisco"];
-locations.forEach(location => {
+locations.forEach((location) => {
   doStuff();
   doSomeOtherStuff();
   // ...
@@ -164,7 +164,7 @@ locations.forEach(location => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't add unneeded context
 
@@ -177,7 +177,7 @@ variable name.
 const Car = {
   carMake: "Honda",
   carModel: "Accord",
-  carColor: "Blue"
+  carColor: "Blue",
 };
 
 function paintCar(car, color) {
@@ -191,7 +191,7 @@ function paintCar(car, color) {
 const Car = {
   make: "Honda",
   model: "Accord",
-  color: "Blue"
+  color: "Blue",
 };
 
 function paintCar(car, color) {
@@ -199,7 +199,7 @@ function paintCar(car, color) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Use default parameters instead of short circuiting or conditionals
 
@@ -225,9 +225,9 @@ function createMicrobrewery(name = "Hipster Brew Co.") {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Functions**
+## **توابع (Functions)**
 
 ### Function arguments (2 or fewer ideally)
 
@@ -267,7 +267,6 @@ function createMenu(title, body, buttonText, cancellable) {
 }
 
 createMenu("Foo", "Bar", "Baz", true);
-
 ```
 
 **Good:**
@@ -281,11 +280,11 @@ createMenu({
   title: "Foo",
   body: "Bar",
   buttonText: "Baz",
-  cancellable: true
+  cancellable: true,
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Functions should do one thing
 
@@ -299,7 +298,7 @@ this guide other than this, you'll be ahead of many developers.
 
 ```javascript
 function emailClients(clients) {
-  clients.forEach(client => {
+  clients.forEach((client) => {
     const clientRecord = database.lookup(client);
     if (clientRecord.isActive()) {
       email(client);
@@ -321,7 +320,7 @@ function isActiveClient(client) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Function names should say what they do
 
@@ -349,7 +348,7 @@ const date = new Date();
 addMonthToDate(1, date);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Functions should only be one level of abstraction
 
@@ -367,18 +366,18 @@ function parseBetterJSAlternative(code) {
 
   const statements = code.split(" ");
   const tokens = [];
-  REGEXES.forEach(REGEX => {
-    statements.forEach(statement => {
+  REGEXES.forEach((REGEX) => {
+    statements.forEach((statement) => {
       // ...
     });
   });
 
   const ast = [];
-  tokens.forEach(token => {
+  tokens.forEach((token) => {
     // lex...
   });
 
-  ast.forEach(node => {
+  ast.forEach((node) => {
     // parse...
   });
 }
@@ -390,7 +389,7 @@ function parseBetterJSAlternative(code) {
 function parseBetterJSAlternative(code) {
   const tokens = tokenize(code);
   const syntaxTree = parse(tokens);
-  syntaxTree.forEach(node => {
+  syntaxTree.forEach((node) => {
     // parse...
   });
 }
@@ -402,8 +401,8 @@ function tokenize(code) {
 
   const statements = code.split(" ");
   const tokens = [];
-  REGEXES.forEach(REGEX => {
-    statements.forEach(statement => {
+  REGEXES.forEach((REGEX) => {
+    statements.forEach((statement) => {
       tokens.push(/* ... */);
     });
   });
@@ -413,7 +412,7 @@ function tokenize(code) {
 
 function parse(tokens) {
   const syntaxTree = [];
-  tokens.forEach(token => {
+  tokens.forEach((token) => {
     syntaxTree.push(/* ... */);
   });
 
@@ -421,7 +420,7 @@ function parse(tokens) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Remove duplicate code
 
@@ -450,14 +449,14 @@ updating multiple places anytime you want to change one thing.
 
 ```javascript
 function showDeveloperList(developers) {
-  developers.forEach(developer => {
+  developers.forEach((developer) => {
     const expectedSalary = developer.calculateExpectedSalary();
     const experience = developer.getExperience();
     const githubLink = developer.getGithubLink();
     const data = {
       expectedSalary,
       experience,
-      githubLink
+      githubLink,
     };
 
     render(data);
@@ -465,14 +464,14 @@ function showDeveloperList(developers) {
 }
 
 function showManagerList(managers) {
-  managers.forEach(manager => {
+  managers.forEach((manager) => {
     const expectedSalary = manager.calculateExpectedSalary();
     const experience = manager.getExperience();
     const portfolio = manager.getMBAProjects();
     const data = {
       expectedSalary,
       experience,
-      portfolio
+      portfolio,
     };
 
     render(data);
@@ -484,13 +483,13 @@ function showManagerList(managers) {
 
 ```javascript
 function showEmployeeList(employees) {
-  employees.forEach(employee => {
+  employees.forEach((employee) => {
     const expectedSalary = employee.calculateExpectedSalary();
     const experience = employee.getExperience();
 
     const data = {
       expectedSalary,
-      experience
+      experience,
     };
 
     switch (employee.type) {
@@ -507,7 +506,7 @@ function showEmployeeList(employees) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Set default objects with Object.assign
 
@@ -518,7 +517,7 @@ const menuConfig = {
   title: null,
   body: "Bar",
   buttonText: null,
-  cancellable: true
+  cancellable: true,
 };
 
 function createMenu(config) {
@@ -539,7 +538,7 @@ const menuConfig = {
   title: "Order",
   // User did not include 'body' key
   buttonText: "Send",
-  cancellable: true
+  cancellable: true,
 };
 
 function createMenu(config) {
@@ -548,11 +547,11 @@ function createMenu(config) {
       title: "Foo",
       body: "Bar",
       buttonText: "Baz",
-      cancellable: true
+      cancellable: true,
     },
     config
   );
-  return finalConfig
+  return finalConfig;
   // config now equals: {title: "Order", body: "Bar", buttonText: "Send", cancellable: true}
   // ...
 }
@@ -560,7 +559,7 @@ function createMenu(config) {
 createMenu(menuConfig);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't use flags as function parameters
 
@@ -590,7 +589,7 @@ function createTempFile(name) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid Side Effects (part 1)
 
@@ -639,20 +638,20 @@ console.log(name); // 'Ryan McDermott';
 console.log(newName); // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid Side Effects (part 2)
 
-In JavaScript, some values are unchangeable (immutable) and some are changeable 
-(mutable). Objects and arrays are two kinds of mutable values so it's important 
-to handle them carefully when they're passed as parameters to a function. A 
-JavaScript function can change an object's properties or alter the contents of 
+In JavaScript, some values are unchangeable (immutable) and some are changeable
+(mutable). Objects and arrays are two kinds of mutable values so it's important
+to handle them carefully when they're passed as parameters to a function. A
+JavaScript function can change an object's properties or alter the contents of
 an array which could easily cause bugs elsewhere.
 
-Suppose there's a function that accepts an array parameter representing a 
-shopping cart. If the function makes a change in that shopping cart array - 
-by adding an item to purchase, for example - then any other function that 
-uses that same `cart` array will be affected by this addition. That may be 
+Suppose there's a function that accepts an array parameter representing a
+shopping cart. If the function makes a change in that shopping cart array -
+by adding an item to purchase, for example - then any other function that
+uses that same `cart` array will be affected by this addition. That may be
 great, however it could also be bad. Let's imagine a bad situation:
 
 The user clicks the "Purchase" button which calls a `purchase` function that
@@ -663,7 +662,7 @@ button on an item they don't actually want before the network request begins?
 If that happens and the network request begins, then that purchase function
 will send the accidentally added item because the `cart` array was modified.
 
-A great solution would be for the `addItemToCart` function to always clone the 
+A great solution would be for the `addItemToCart` function to always clone the
 `cart`, edit it, and return the clone. This would ensure that functions that are still
 using the old shopping cart wouldn't be affected by the changes.
 
@@ -695,7 +694,7 @@ const addItemToCart = (cart, item) => {
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't write to global functions
 
@@ -714,7 +713,7 @@ would be much better to just use ES2015/ES6 classes and simply extend the `Array
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
   const hash = new Set(comparisonArray);
-  return this.filter(elem => !hash.has(elem));
+  return this.filter((elem) => !hash.has(elem));
 };
 ```
 
@@ -724,12 +723,12 @@ Array.prototype.diff = function diff(comparisonArray) {
 class SuperArray extends Array {
   diff(comparisonArray) {
     const hash = new Set(comparisonArray);
-    return this.filter(elem => !hash.has(elem));
+    return this.filter((elem) => !hash.has(elem));
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Favor functional programming over imperative programming
 
@@ -743,20 +742,20 @@ Favor this style of programming when you can.
 const programmerOutput = [
   {
     name: "Uncle Bobby",
-    linesOfCode: 500
+    linesOfCode: 500,
   },
   {
     name: "Suzie Q",
-    linesOfCode: 1500
+    linesOfCode: 1500,
   },
   {
     name: "Jimmy Gosling",
-    linesOfCode: 150
+    linesOfCode: 150,
   },
   {
     name: "Gracie Hopper",
-    linesOfCode: 1000
-  }
+    linesOfCode: 1000,
+  },
 ];
 
 let totalOutput = 0;
@@ -772,20 +771,20 @@ for (let i = 0; i < programmerOutput.length; i++) {
 const programmerOutput = [
   {
     name: "Uncle Bobby",
-    linesOfCode: 500
+    linesOfCode: 500,
   },
   {
     name: "Suzie Q",
-    linesOfCode: 1500
+    linesOfCode: 1500,
   },
   {
     name: "Jimmy Gosling",
-    linesOfCode: 150
+    linesOfCode: 150,
   },
   {
     name: "Gracie Hopper",
-    linesOfCode: 1000
-  }
+    linesOfCode: 1000,
+  },
 ];
 
 const totalOutput = programmerOutput.reduce(
@@ -794,7 +793,7 @@ const totalOutput = programmerOutput.reduce(
 );
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Encapsulate conditionals
 
@@ -818,7 +817,7 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid negative conditionals
 
@@ -846,7 +845,7 @@ if (isDOMNodePresent(node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid conditionals
 
@@ -906,7 +905,7 @@ class Cessna extends Airplane {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid type-checking (part 1)
 
@@ -935,7 +934,7 @@ function travelToTexas(vehicle) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid type-checking (part 2)
 
@@ -972,7 +971,7 @@ function combine(val1, val2) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't over-optimize
 
@@ -1000,7 +999,7 @@ for (let i = 0; i < list.length; i++) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Remove dead code
 
@@ -1034,9 +1033,9 @@ const req = newRequestModule;
 inventoryTracker("apples", req, "www.inventory-awesome.io");
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Objects and Data Structures**
+## **اشیاء و ساختارهای داده (Objects and Data Structures)**
 
 ### Use getters and setters
 
@@ -1059,7 +1058,7 @@ function makeBankAccount() {
   // ...
 
   return {
-    balance: 0
+    balance: 0,
     // ...
   };
 }
@@ -1089,7 +1088,7 @@ function makeBankAccount() {
   return {
     // ...
     getBalance,
-    setBalance
+    setBalance,
   };
 }
 
@@ -1097,7 +1096,7 @@ const account = makeBankAccount();
 account.setBalance(100);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Make objects have private members
 
@@ -1106,7 +1105,7 @@ This can be accomplished through closures (for ES5 and below).
 **Bad:**
 
 ```javascript
-const Employee = function(name) {
+const Employee = function (name) {
   this.name = name;
 };
 
@@ -1127,7 +1126,7 @@ function makeEmployee(name) {
   return {
     getName() {
       return name;
-    }
+    },
   };
 }
 
@@ -1137,9 +1136,9 @@ delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: John Doe
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Classes**
+## **کلاسها (Classes)**
 
 ### Prefer ES2015/ES6 classes over ES5 plain functions
 
@@ -1151,7 +1150,7 @@ classes until you find yourself needing larger and more complex objects.
 **Bad:**
 
 ```javascript
-const Animal = function(age) {
+const Animal = function (age) {
   if (!(this instanceof Animal)) {
     throw new Error("Instantiate Animal with `new`");
   }
@@ -1161,7 +1160,7 @@ const Animal = function(age) {
 
 Animal.prototype.move = function move() {};
 
-const Mammal = function(age, furColor) {
+const Mammal = function (age, furColor) {
   if (!(this instanceof Mammal)) {
     throw new Error("Instantiate Mammal with `new`");
   }
@@ -1174,7 +1173,7 @@ Mammal.prototype = Object.create(Animal.prototype);
 Mammal.prototype.constructor = Mammal;
 Mammal.prototype.liveBirth = function liveBirth() {};
 
-const Human = function(age, furColor, languageSpoken) {
+const Human = function (age, furColor, languageSpoken) {
   if (!(this instanceof Human)) {
     throw new Error("Instantiate Human with `new`");
   }
@@ -1224,7 +1223,7 @@ class Human extends Mammal {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Use method chaining
 
@@ -1304,7 +1303,7 @@ class Car {
 const car = new Car("Ford", "F-150", "red").setColor("pink").save();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Prefer composition over inheritance
 
@@ -1374,9 +1373,9 @@ class Employee {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **SOLID**
+## **اصول سالید (SOLID)**
 
 ### Single Responsibility Principle (SRP)
 
@@ -1436,7 +1435,7 @@ class UserSettings {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Open/Closed Principle (OCP)
 
@@ -1469,11 +1468,11 @@ class HttpRequester {
 
   fetch(url) {
     if (this.adapter.name === "ajaxAdapter") {
-      return makeAjaxCall(url).then(response => {
+      return makeAjaxCall(url).then((response) => {
         // transform response and return
       });
     } else if (this.adapter.name === "nodeAdapter") {
-      return makeHttpCall(url).then(response => {
+      return makeHttpCall(url).then((response) => {
         // transform response and return
       });
     }
@@ -1520,14 +1519,14 @@ class HttpRequester {
   }
 
   fetch(url) {
-    return this.adapter.request(url).then(response => {
+    return this.adapter.request(url).then((response) => {
       // transform response and return
     });
   }
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Liskov Substitution Principle (LSP)
 
@@ -1587,7 +1586,7 @@ class Square extends Rectangle {
 }
 
 function renderLargeRectangles(rectangles) {
-  rectangles.forEach(rectangle => {
+  rectangles.forEach((rectangle) => {
     rectangle.setWidth(4);
     rectangle.setHeight(5);
     const area = rectangle.getArea(); // BAD: Returns 25 for Square. Should be 20.
@@ -1636,7 +1635,7 @@ class Square extends Shape {
 }
 
 function renderLargeShapes(shapes) {
-  shapes.forEach(shape => {
+  shapes.forEach((shape) => {
     const area = shape.getArea();
     shape.render(area);
   });
@@ -1646,7 +1645,7 @@ const shapes = [new Rectangle(4, 5), new Rectangle(4, 5), new Square(5)];
 renderLargeShapes(shapes);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Interface Segregation Principle (ISP)
 
@@ -1685,7 +1684,7 @@ class DOMTraverser {
 
 const $ = new DOMTraverser({
   rootNode: document.getElementsByTagName("body"),
-  animationModule() {} // Most of the time, we won't need to animate when traversing.
+  animationModule() {}, // Most of the time, we won't need to animate when traversing.
   // ...
 });
 ```
@@ -1719,12 +1718,12 @@ class DOMTraverser {
 const $ = new DOMTraverser({
   rootNode: document.getElementsByTagName("body"),
   options: {
-    animationModule() {}
-  }
+    animationModule() {},
+  },
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Dependency Inversion Principle (DIP)
 
@@ -1772,7 +1771,7 @@ class InventoryTracker {
   }
 
   requestItems() {
-    this.items.forEach(item => {
+    this.items.forEach((item) => {
       this.requester.requestItem(item);
     });
   }
@@ -1792,7 +1791,7 @@ class InventoryTracker {
   }
 
   requestItems() {
-    this.items.forEach(item => {
+    this.items.forEach((item) => {
       this.requester.requestItem(item);
     });
   }
@@ -1827,9 +1826,9 @@ const inventoryTracker = new InventoryTracker(
 inventoryTracker.requestItems();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Testing**
+## **تست کردن (Testing)**
 
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
@@ -1898,9 +1897,9 @@ describe("MomentJS", () => {
 });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Concurrency**
+## **همزمانی (Concurrency)**
 
 ### Use Promises, not callbacks
 
@@ -1919,7 +1918,7 @@ get(
     if (requestErr) {
       console.error(requestErr);
     } else {
-      writeFile("article.html", body, writeErr => {
+      writeFile("article.html", body, (writeErr) => {
         if (writeErr) {
           console.error(writeErr);
         } else {
@@ -1938,18 +1937,18 @@ import { get } from "request-promise";
 import { writeFile } from "fs-extra";
 
 get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then(body => {
+  .then((body) => {
     return writeFile("article.html", body);
   })
   .then(() => {
     console.log("File written");
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Async/Await are even cleaner than Promises
 
@@ -1966,13 +1965,13 @@ import { get } from "request-promise";
 import { writeFile } from "fs-extra";
 
 get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin")
-  .then(body => {
+  .then((body) => {
     return writeFile("article.html", body);
   })
   .then(() => {
     console.log("File written");
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
   });
 ```
@@ -1985,9 +1984,7 @@ import { writeFile } from "fs-extra";
 
 async function getCleanCodeArticle() {
   try {
-    const body = await get(
-      "https://en.wikipedia.org/wiki/Robert_Cecil_Martin"
-    );
+    const body = await get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin");
     await writeFile("article.html", body);
     console.log("File written");
   } catch (err) {
@@ -1995,12 +1992,12 @@ async function getCleanCodeArticle() {
   }
 }
 
-getCleanCodeArticle()
+getCleanCodeArticle();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Error Handling**
+## **رسیدگی به خطا (Error Handling)**
 
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
@@ -2051,10 +2048,10 @@ from `try/catch`.
 
 ```javascript
 getdata()
-  .then(data => {
+  .then((data) => {
     functionThatMightThrow(data);
   })
-  .catch(error => {
+  .catch((error) => {
     console.log(error);
   });
 ```
@@ -2063,10 +2060,10 @@ getdata()
 
 ```javascript
 getdata()
-  .then(data => {
+  .then((data) => {
     functionThatMightThrow(data);
   })
-  .catch(error => {
+  .catch((error) => {
     // One option (more noisy than console.log):
     console.error(error);
     // Another option:
@@ -2077,9 +2074,9 @@ getdata()
   });
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Formatting**
+## **قالب بندی (Formatting)**
 
 Formatting is subjective. Like many rules herein, there is no hard and fast
 rule that you must follow. The main point is DO NOT ARGUE over formatting.
@@ -2128,7 +2125,7 @@ class Animal {}
 class Alpaca {}
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Function callers and callees should be close
 
@@ -2216,9 +2213,9 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## **Comments**
+## **یادداشت ها (Comments)**
 
 ### Only comment things that have business logic complexity.
 
@@ -2263,7 +2260,7 @@ function hashIt(data) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't leave commented out code in your codebase
 
@@ -2284,7 +2281,7 @@ doStuff();
 doStuff();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Don't have journal comments
 
@@ -2313,7 +2310,7 @@ function combine(a, b) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
 ### Avoid positional markers
 
@@ -2328,13 +2325,13 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 $scope.model = {
   menu: "foo",
-  nav: "bar"
+  nav: "bar",
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-const actions = function() {
+const actions = function () {
   // ...
 };
 ```
@@ -2344,17 +2341,17 @@ const actions = function() {
 ```javascript
 $scope.model = {
   menu: "foo",
-  nav: "bar"
+  nav: "bar",
 };
 
-const actions = function() {
+const actions = function () {
   // ...
 };
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
 
-## Translation
+## ترجمه (Translation)
 
 This is also available in other languages:
 
@@ -2382,4 +2379,4 @@ This is also available in other languages:
 - ![ua](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Ukraine.png) **Ukrainian**: [mindfr1k/clean-code-javascript-ua](https://github.com/mindfr1k/clean-code-javascript-ua)
 - ![vi](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Vietnam.png) **Vietnamese**: [hienvd/clean-code-javascript/](https://github.com/hienvd/clean-code-javascript/)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ بازگشت به فهرست مطالب](#فهرست-مطالب)**
